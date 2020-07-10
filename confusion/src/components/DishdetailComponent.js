@@ -9,17 +9,15 @@ class DishDetail extends Component {
 
   renderComments(comments) {
     if(comments!=null) {
-      //
       const listOfComments = comments.map((commentx) => {
           return (
             <li key={commentx.id}>
-              --{commentx.comment}<br/> {commentx.author},{commentx.date}
+              --{commentx.comment}<br/> {commentx.author}, {new Date(commentx.date).toDateString()}
               <br/><br/>
             </li>
 
           );
         });
-      //
       return (
         <div className="col-12 col-md-5 m-1">
           <h4>Comments</h4>
@@ -34,9 +32,10 @@ class DishDetail extends Component {
   }
 
   render() {
-    var dish = this.props.selectedDish;
+    var dish = this.props.dish;
     if(dish!=null) {
       return (
+          <div className="container">
           <div className="row">
             <Card className="col-12 col-md-5 m-1">
               <CardImg top src={dish.image} alt={dish.name} />
@@ -46,6 +45,7 @@ class DishDetail extends Component {
               </CardBody>
             </Card>
             {this.renderComments(dish.comments)}
+          </div>
           </div>
         );
       } else {
