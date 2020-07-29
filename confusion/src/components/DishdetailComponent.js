@@ -9,6 +9,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import CommentForm from "./CommentFormComponent.js";
 
 function RenderComments({ comments }) {
   if (comments != null) {
@@ -26,6 +27,7 @@ function RenderComments({ comments }) {
       <div>
         <h4>Comments</h4>
         <ul className="list-unstyled">{listOfComments}</ul>
+        <CommentForm />
       </div>
     );
   } else {
