@@ -20,23 +20,28 @@ import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 function RenderComments({ comments, postComment, dishId }) {
   if (comments != null) {
     const listOfComments = comments.map((commentx) => {
       return (
-        <li key={commentx.id}>
-          --{commentx.comment}
-          <br /> {commentx.author}, {new Date(commentx.date).toDateString()}
-          <br />
-          <br />
-        </li>
+        <Fade in>
+          <li key={commentx.id}>
+            --{commentx.comment}
+            <br /> {commentx.author}, {new Date(commentx.date).toDateString()}
+            <br />
+            <br />
+          </li>
+        </Fade>
       );
     });
     return (
       <div>
         <h4>Comments</h4>
-        <ul className="list-unstyled">{listOfComments}</ul>
+        <ul className="list-unstyled">
+          <Stagger in>{listOfComments}</Stagger>
+        </ul>
         <CommentForm dishId={dishId} postComment={postComment} />
       </div>
     );
@@ -48,15 +53,20 @@ function RenderComments({ comments, postComment, dishId }) {
 function RenderDish({ dish }) {
   if (dish != null) {
     return (
-      <Card>
-        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-        <CardBody>
-          <CardTitle>
-            <b>{dish.name}</b>
-          </CardTitle>
-          <CardText>{dish.description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform
+        in
+        transformProps={{
+          exitTransform: "scale(0.5) translateY(-50%)",
+        }}
+      >
+        <Card>
+          <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+          <CardBody>
+            <CardTitle>{dish.name}</CardTitle>
+            <CardText>{dish.description}</CardText>
+          </CardBody>
+        </Card>
+      </FadeTransform>
     );
   } else {
     return <div></div>;
